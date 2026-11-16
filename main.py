@@ -6,15 +6,8 @@ def main():
     while True:
         print()
         print("****MYSTERY ISLAND🌴****")
-        print("〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️")
-        name=input("Player Name:")
-        if name.isdigit():
-            print("invalid; use only letters a-z")
-            continue
-        else:
-            print(f"🤗 {name}! Welcome to Mystery Island!")
-            print()
-            print("""Game Task: 
+        print("〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️\n")
+        print("""Game Task: 
                 You wake up on Mystery Island after a storm 
                 The lighthouse is dark, the bridge is locked, 
                 and a rescue boat will arrive only if you restore the beacon.
@@ -26,20 +19,20 @@ def main():
                 invalid input or option does not reduces energy as you will have to input the correct 
                 option.
                 """)
-            while True:
-                start=input("Enter start:")
-                if start != "start".lower():
-                    print("invalid option: enter start")
-                    option=input("wish to continue? y/N:")
-                    if option=="y".lower():
-                        continue
-                    elif option=="N".lower():
-                        break
-                    else:
-                        print("inavlid option")
-                        continue
-                else:
+        while True:
+            start=input("Enter start:")
+            if start != "start".lower():
+                print("invalid option: enter start")
+                option=input("wish to continue? y/N:")
+                if option=="y".lower():
+                    continue
+                elif option=="N".lower():
                     break
-            break
+                else:
+                    print("inavlid option")
+                    continue
+            else:
+                break
+        break
            
 main()
