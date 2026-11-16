@@ -1,9 +1,9 @@
 import random
 
 
-def new_game(name):
+def new_game(player_name):
     player = {
-        "name": name,
+        "name": player_name,
         "location": "Beach",
         "energy": 5,
         "inventory": [],
@@ -13,7 +13,7 @@ def new_game(name):
     return player
 
 
-def action():
+def puzzle():
     riddles = [
         {
             "question": (
@@ -94,10 +94,17 @@ def action():
             "answer": "ii",
         },
     ]
+    while True:
+        name=input("Player Name:")
+        if name.isdigit():
+            print("invalid; use only letters a-z")
+            continue
+        else:
+            break
+    enrg=(new_game(name))
 
     while True:
         print("Answer 3 correct riddles to take a move.\n")
-
         # Pick 3 unique random riddles from the list
         selected_riddles = random.sample(riddles, 3)
         all_correct = True
@@ -116,16 +123,31 @@ def action():
             if user_answer != riddle["answer"]:
                 print("  ❌: Try again\n")
                 all_correct = False
-                break
+                enrg["energy"]-=1
+                print(f"⚡:{enrg["energy"]}")
+                if enrg["energy"]==0:
+                    print("Fail❗:game over")
+                    enrg["game_over"]=True
+                    return  enrg
+                else:
+                    break
             else:
                 print("  ✅\n")
 
         # If the player got all 3 right, exit the loop so they can make their move
         if all_correct:
-            print("🎉 You solved all 3 riddles! You may now take a move.")
-            break
+            print("🎉 You solved all 3 riddles! You may now take a move.\nmap:\n🟢Beach🏖️--->Jungle🌳--->Cave🪨--->Old-Bridge🌉--->Lighthouse🏰")
+            while True:
+                move=input("type location to move: ").strip().lower()
+                if move !="jungle" and  move !="cave" and  move !="old-bridge" and  move !="lighthouse":
+                    print("invalid move/location❗")
+                    continue
+                else:
+                    enrg["location"]=move.title()
+                    print(f"here comes you to the {move}, explore to find your path.🤗")
+                    break
 
-action()
+
 
 
 
