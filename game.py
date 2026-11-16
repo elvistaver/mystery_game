@@ -102,6 +102,7 @@ def puzzle():
         else:
             break
     enrg=(new_game(name))
+    print(f"🤗 {name}! Welcome to Mystery Island!")
 
     while True:
         print("Answer 3 correct riddles to take a move.\n")
@@ -146,7 +147,6 @@ def puzzle():
                     enrg["location"]=move.title()
                     print(f"here comes you to the {move}, explore to find your path.🤗")
                     break
-
 
 
 
