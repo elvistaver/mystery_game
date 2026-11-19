@@ -97,11 +97,11 @@ def puzzle():
     while True:
         name=input("Player Name:")
         if name.isdigit():
-            print("invalid; use only letters a-z")
+            print("invalid; must use letters a-z ")
             continue
         else:
             break
-    enrg=(new_game(name))
+    invtry=(new_game(name))
     print(f"🤗 {name}! Welcome to Mystery Island!")
 
     while True:
@@ -124,29 +124,75 @@ def puzzle():
             if user_answer != riddle["answer"]:
                 print("  ❌: Try again\n")
                 all_correct = False
-                enrg["energy"]-=1
-                print(f"⚡:{enrg["energy"]}")
-                if enrg["energy"]==0:
-                    print("Fail❗:game over")
-                    enrg["game_over"]=True
-                    return  enrg
+                invtry["energy"]-=1
+                print(f"⚡:{invtry["energy"]}")
+                if invtry["energy"]==0:
+                    print("Fail 🥺:game over")
+                    invtry["game_over"]=True
+                    return  invtry
                 else:
                     break
             else:
                 print("  ✅\n")
+                print(f"⚡:{invtry["energy"]}")
 
         # If the player got all 3 right, exit the loop so they can make their move
         if all_correct:
-            print("🎉 You solved all 3 riddles! You may now take a move.\nmap:\n🟢Beach🏖️--->Jungle🌳--->Cave🪨--->Old-Bridge🌉--->Lighthouse🏰")
+            print("🎉 You solved all 3 riddles! You may now take a move.\nCurrent location:🟢Beach🏖️\nmap🗺️:\n📍Jungle🌳 ➡️  Cave🪨  ➡️  Old-Bridge🌉 ➡️  Lighthouse🏰")
             while True:
                 move=input("type location to move: ").strip().lower()
-                if move !="jungle" and  move !="cave" and  move !="old-bridge" and  move !="lighthouse":
+                print()
+                if move !="jungle" and  move !="cave" and move !="lighthouse" and move !="old-bridge":
                     print("invalid move/location❗")
                     continue
+                elif move=="lighthouse":
+                    print("👉 you have to cross the old-bridge to reach the Lighthouse")
+                    continue
+                elif move=="old-bridge":
+                    print("👉 you need a rope to cross the old-bridge")
+                    continue
                 else:
-                    enrg["location"]=move.title()
-                    print(f"here comes you to the {move}, explore to find your path.🤗")
+                    invtry["location"]=move.title()
+                    print(f"here comes you to the {move.title()}, explore to find your path.🤗")
+                    print("search and find the rope,lantern to cross the old-bridge and light up the Lighthouse")
                     break
+                print()
+            while True:
+                print("Answer 2 correct riddles to pick a rope.\n")
+                selected_riddles = random.sample(riddles, 2)
+                all_correct = True
+                for index, riddle in enumerate(selected_riddles, start=1):
+                    print(f"{index}. {riddle['question']}\n  {riddle['options']}")
+
+                    while True:
+                        user_answer = input("  answer: ").strip().lower()
+                        if user_answer not in ("i", "ii", "iii"):
+                            print("  invalid option❗")
+                            continue
+                        else:
+                            break
+
+                    if user_answer != riddle["answer"]:
+                        print("  ❌: Try again\n")
+                        all_correct = False
+                        invtry["energy"]-=1
+                        print(f"⚡:{invtry["energy"]}")
+                        if invtry["energy"]==0:
+                            print("Fail 🥺:game over")
+                            invtry["game_over"]=True
+                            return  invtry
+                        else:
+                            break
+                    else:
+                        print("  ✅\n")
+                        print(f"⚡:{invtry["energy"]}")
+                if all_correct and invtry["location"]=="Jungle":
+                    print("🎉 rope picked")
+                    invtry["inventory"].append("Rope")
+                else:
+                    print("No rope found")
+                    break
+
 
 
 
